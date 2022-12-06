@@ -1,0 +1,72 @@
+<html>
+<title>AiB</title>
+
+<body
+    style="width: 100%; height: 100%;background: #000; color:#fff; display: flex; flex-direction:column; justify-content: center;align-items: center;overflow: hidden;">
+    <h1 style="font-size: 10vh;margin: 0%;">AiB</h1>
+    <h2>Chervoniak (Alex-Briz) Vadym</h2>
+    <img src="https://alex-briz.github.io/cv/img/photo956.46cbbe4b.png" alt="photo"
+        style="width: 20vh; height: 20vh; border-radius: 50%;">
+    <h3>as simple as A & B . . .</h3>
+    <a href="https://alex-briz.github.io/cv/">#view template page(s)</a>
+    <div id="fetched"></div>
+    <script>
+
+        function isObject(objValue) {
+            return objValue && typeof objValue === 'object' && objValue.constructor === Object;
+        }
+
+        const users = fetch('https://jsonplaceholder.typicode.com/users/')
+            .then(response => response.json())
+            .then(arr => {
+                for (let i = 0; i < arr.length; i++) {
+
+                    const el = document.createElement('div')
+                    el.id = 'user_' + (i + 1)
+
+                    const o_list = document.createElement('ul')
+
+                    Object.entries(arr[i]).forEach(([key, value]) => {
+
+                        console.log(`${key}: ${value}`)
+
+                        const l_list = document.createElement('ul')
+
+                        if (isObject(value)) {
+
+                            console.log('Object detected as value')
+
+                            const l_sub_list = document.createElement('ul')
+
+                            Object.entries(value).forEach(([key, value]) => {
+
+                                console.log(`${key}: ${value}`)
+
+                                const l_sub_item = document.createElement('li')
+
+                                l_sub_item.innerText = `${key}: ${value}`
+
+                                l_sub_list.appendChild(l_sub_item)
+                            })
+                            l_list.appendChild(l_sub_list)
+                        } else {
+                            const l_item = document.createElement('li')
+                            l_item.innerText = `${key}: ${value}`
+                            l_list.appendChild(l_item)
+                        }
+
+                        o_list.appendChild(l_list)
+                        el.appendChild(o_list)
+                        document.getElementById('fetched').appendChild(el)
+
+                    })
+
+                }
+            })
+        document.getElementById('fetched').style.width = '100%'
+        document.getElementById('fetched').style.display = 'flex'
+        document.getElementById('fetched').style.flexWrap = 'wrap'
+    </script>
+</body>
+
+</html>

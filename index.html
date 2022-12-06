@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <title>AiB</title>
+    <style>
+        body {
+            width: 100%;
+            background: #000;
+            color: #fff;
+            /* word-break: break-all; */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        h1 {
+            font-size: 10vh;
+            margin: 0%;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        #author {
+            width: 10vh;
+            height: 10vh;
+            border-radius: 50%;
+        }
+
+        ul {
+            border: 1px solid gold;
+            flex: 1;
+        }
+
+        ul ul {
+            border: 1px solid green;
+        
+        }
+
+        ul ul ul {
+            border: 1px solid navy;
+        }
+
+        ul ul ul {
+            border: 1px solid navy;
+        }
+
+        .fetched {
+            width: 100%;
+            display: flex;
+        }
+        #list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        #list ul {
+            width: 44%;
+            z-index: 1;
+        }
+
+        #list ul ul {
+            width: 80%;
+            z-index: 2;
+        }
+
+        #list ul ul * {
+            max-width: 90%;
+            z-index: 3;
+        }
+
+        #head_mid {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+    <h2>Chervoniak (Alex-Briz) Vadym</h2>
+    <div id="head_mid"><h1>AiB</h1><img src="https://alex-briz.github.io/cv/img/photo956.46cbbe4b.png" alt="photo" id="author"></div>
+    <h3>as simple as A & B . . .<a href="https://alex-briz.github.io/cv/">#view more</a></h3>
+   </header>
+    <div id="fetched"></div>
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/users/')
+            .then(response => response.json())
+            .then(arr => {
+                // console.log(json_str.length)
+                document.getElementById('fetched').innerHTML = JSON.stringify(arr)
+                    .replaceAll('[', `<div id="list" style="border: 1px dashed whitesmoke;">`).replaceAll(']', `</div>`).replaceAll(`},{`, `}{`)
+                    .replaceAll('{', `<ul><li>`).replaceAll(',', `</li><li>`).replaceAll(`}`, `</li></ul>`).replaceAll(`</ul><li><ul>`, `</ul><ul>`)
+            })
+    </script>
+</body>
+
+</html>
